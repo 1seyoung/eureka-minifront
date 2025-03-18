@@ -1,0 +1,48 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* header 스타일 */
+header {
+    background-color: #007bff;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+}
+
+/* section 스타일 */
+section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 지도 스타일 */
+#map {
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* 버튼 스타일 */
+.nav-buttons a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    text-decoration: none;
+    color: white;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.nav-buttons a:hover {
+    background-color: #0056b3;
+}

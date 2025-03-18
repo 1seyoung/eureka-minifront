@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마리오 게임 페이지</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/css/han_mario-style.css">
+    <!-- Internal CSS -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #5b91fc; /* 마리오 스타일의 파란 하늘 배경 */
+            color: #333;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        .game-container {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-color: #8a5f00;
+            border-top: 10px solid #5d4001;
+        }
+        
+        .mario {
+            position: absolute;
+            bottom: 80px;
+            left: -100px;
+            width: 60px;
+            height: auto;
+            z-index: 10;
+            animation: mario-run 20s linear infinite;
+        }
+        
+        @keyframes mario-run {
+            /* 시작 - 화면 밖 */
+            0% {
+                left: -100px;
+                bottom: 80px;
+            }
+            
+            /* 첫 번째 토관 앞에 도착 */
+            20% {
+                left: 20%;
+                bottom: 80px;
+            }
+            
+            /* 첫 번째 토관 위로 점프 */
+            25% {
+                left: 30%;
+                bottom: 200px;
+            }
+            
+            /* 첫 번째 토관 뒤로 착지 */
+            30% {
+                left: 40%;
+                bottom: 80px;
+            }
+            
+            /* 계속 달리기 */
+            45% {
+                left: 60%;
+                bottom: 80px;
+            }
+            
+            /* 두 번째 토관 앞에 도착 */
+            50% {
+                left: 65%;
+                bottom: 80px;
+            }
+            
+            /* 두 번째 토관 위로 점프 */
+            55% {
+                left: 75%;
+                bottom: 200px;
+            }
+            
+            /* 두 번째 토관 뒤로 착지 */
+            60% {
+                left: 85%;
+                bottom: 80px;
+            }
+            
+            /* 화면 밖으로 나가기 */
+            100% {
+                left: 110%;
+                bottom: 80px;
+            }
+        }
+        
+        .pipe {
+            position: absolute;
+            bottom: 80px;
+            width: 80px;
+            height: 100px;
+        }
+        
+        .pipe-left {
+            left: 30%;
+        }
+        
+        .pipe-right {
+            right: 30%;
+            /* 오른쪽에서부터 계산하면 왼쪽으로 70% 위치 */
+            left: 70%;
+        }
+        
+        .question-block {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 200px;
+            animation: float 2s infinite ease-in-out;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
+        .block1 {
+            left: 20%;
+        }
+        
+        .block2 {
+            left: 45%;
+        }
+        
+        .block3 {
+            left: 70%;
+        }
+        
+        .cloud {
+            position: absolute;
+            animation: clouds linear infinite;
+        }
+        
+        .cloud1 {
+            top: 80px;
+            left: -150px;
+            width: 120px;
+            animation-duration: 35s;
+        }
+        
+        .cloud2 {
+            top: 150px;
+            left: -300px;
+            width: 90px;
+            animation-duration: 45s;
+            animation-delay: 5s;
+        }
+        
+        .cloud3 {
+            top: 50px;
+            left: -200px;
+            width: 140px;
+            animation-duration: 40s;
+            animation-delay: 15s;
+        }
+        
+        @keyframes clouds {
+            from {
+                transform: translateX(0);
+            }
+            to {
+                transform: translateX(calc(100vw + 300px));
+            }
+        }
+        
+        .brick {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+        }
+        
+        .brick1 {
+            left: 15%;
+            top: 250px;
+        }
+        
+        .brick2 {
+            left: 22%;
+            top: 250px;
+        }
+        
+        .brick3 {
+            left: 29%;
+            top: 250px;
+        }
+        
+        .brick4 {
+            left: 60%;
+            top: 280px;
+        }
+        
+        .brick5 {
+            left: 67%;
+            top: 280px;
+        }
+        
+        .brick6 {
+            left: 74%;
+            top: 280px;
+        }
+        
+        .home-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            opacity: 0.1;
+            transition: opacity 0.3s;
+        }
+        
+        .home-link:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- 배경 요소 -->
+        <img src="/img/han_cloud.png" alt="구름" class="cloud cloud1">
+        <img src="/img/han_cloud.png" alt="구름" class="cloud cloud2">
+        <img src="/img/han_cloud.png" alt="구름" class="cloud cloud3">
+        
+        <!-- 게임 요소 -->
+        <img src="/img/han_question-block.png" alt="물음표 블록" class="question-block block1">
+        <img src="/img/han_question-block.png" alt="물음표 블록" class="question-block block2">
+        <img src="/img/han_question-block.png" alt="물음표 블록" class="question-block block3">
+        
+        <!-- 벽돌 블록 -->
+        <img src="/img/han_brick-block.png" alt="벽돌 블록" class="brick brick1">
+        <img src="/img/han_brick-block.png" alt="벽돌 블록" class="brick brick2">
+        <img src="/img/han_brick-block.png" alt="벽돌 블록" class="brick brick3">
+        <img src="/img/han_brick-block.png" alt="벽돌 블록" class="brick brick4">
+        <img src="/img/han_brick-block.png" alt="벽돌 블록" class="brick brick5">
+        <img src="/img/han_brick-block.png" alt="벽돌 블록" class="brick brick6">
+        
+        <img src="/img/han_pipe.png" alt="토관" class="pipe pipe-left">
+        <img src="/img/han_pipe.png" alt="토관" class="pipe pipe-right">
+        
+        <!-- 마리오 캐릭터 -->
+        <img src="/img/han_mario.png" alt="마리오" class="mario">
+        
+        <!-- 지면 -->
+        <div class="ground"></div>
+        
+        <!-- 홈으로 가는 링크 (거의 보이지 않지만 호버시 보임) -->
+        <a href="han_index.html" class="home-link">
+            <img src="/img/han_mushroom.png" alt="메인으로" width="40">
+        </a>
+    </div>
+</body>
+</html>

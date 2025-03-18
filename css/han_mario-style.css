@@ -1,0 +1,116 @@
+/* mario-style.css - 마리오 컨셉 자기소개 페이지의 공통 스타일 */
+
+/* 기본 설정 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* 링크 스타일 */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 마리오 로고 스타일 */
+.mario-logo {
+    font-family: 'Arial', sans-serif;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #FF5722;
+    text-shadow: 2px 2px 0 #FFC107, 4px 4px 0 #333;
+    text-align: center;
+    padding: 15px 0;
+}
+
+/* 페이지 제목 스타일 */
+.page-title {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 1.5em;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 버튼 공통 스타일 */
+.mario-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #FF5722;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    text-align: center;
+    box-shadow: 0 4px 0 #E64A19;
+}
+
+.mario-button:hover {
+    transform: translateY(-2px);
+    background-color: #FF7043;
+}
+
+/* 마리오 아이템 애니메이션 */
+.mario-animated {
+    animation: bob 2s infinite ease-in-out;
+}
+
+@keyframes bob {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* 페이지 푸터 스타일 */
+.mario-footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 0.9em;
+    color: #666;
+    border-top: 2px dashed #E0E0E0;
+}
+
+/* 마리오 컨셉 컨테이너 */
+.mario-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 마리오 스타일 이미지 테두리 */
+.mario-border {
+    border: 4px solid #FF5722;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #FFF8E1;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 1.5em;
+    }
+    
+    .mario-button {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.2em;
+    }
+    
+    .mario-button {
+        font-size: 0.8em;
+        padding: 6px 12px;
+    }
+}

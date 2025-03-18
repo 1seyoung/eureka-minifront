@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마리오 컨셉 자기소개</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/css/han_mario-style.css">
+    <!-- Internal CSS -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #5b91fc; /* 마리오 스타일의 파란 하늘 배경 */
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        .brick {
+            position: absolute;
+            width: 100px;
+            height: auto;
+            left: 200px;
+            top: 350px;
+        }
+        
+        .question-block {
+            position: absolute;
+            width: 70px;
+            height: auto;
+            left: 50%;
+            top: 150px;
+            transform: translateX(-50%);
+            transition: transform 0.2s;
+        }
+        
+        .question-block:hover {
+            transform: translateX(-50%) scale(1.1);
+        }
+        
+        .pipe-container {
+            position: absolute;
+            right: 150px;
+            bottom: 0;
+        }
+        
+        .pipe {
+            width: 120px;
+            height: auto;
+            transition: transform 0.3s;
+        }
+        
+        .pipe:hover {
+            transform: scale(1.05);
+        }
+        
+        .mario {
+            position: absolute;
+            width: 80px;
+            height: auto;
+            right: 60px;
+            bottom: 80px;
+            display: none;
+            transition: all 0.5s;
+        }
+        
+        .speech-bubble {
+            position: absolute;
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            right: -60px;
+            bottom: 170px;
+            max-width: 250px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            display: none;
+            transition: all 0.5s;
+        }
+        
+        .speech-bubble:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 40%;
+            width: 0;
+            height: 0;
+            border: 15px solid transparent;
+            border-top-color: white;
+            border-bottom: 0;
+            margin-left: -15px;
+            margin-bottom: -15px;
+        }
+        
+        /* 토관에 마우스를 올렸을 때 마리오와 말풍선 표시 */
+        .pipe-container:hover .mario,
+        .pipe-container:hover .speech-bubble {
+            display: block;
+        }
+        
+        .cloud {
+            position: absolute;
+            width: 150px;
+            height: auto;
+            right: 100px;
+            top: 70px;
+        }
+        
+        .secret-button {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            left: 20px;
+            top: 20px;
+            opacity: 0.05; /* 거의 보이지 않게 설정 */
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        
+        .secret-button:hover {
+            opacity: 0.2; /* 마우스를 올리면 조금 더 보이게 */
+        }
+    </style>
+</head>
+<body>
+    <!-- 마리오 게임의 요소들 -->
+    <a href="han_game.html">
+        <img src="/img/han_brick-block.png" alt="벽돌 블록" class="brick">
+    </a>
+    
+    <a href="han_about-me.html">
+        <img src="/img/han_question-block.png" alt="물음표 블록" class="question-block">
+    </a>
+    
+    <div class="pipe-container">
+        <a href="han_game.html">
+            <img src="/img/han_pipe.png" alt="토관" class="pipe">
+        </a>
+        <img src="/img/han_mario.png" alt="마리오" class="mario">
+        <div class="speech-bubble">
+            한세영 자기소개 페이지입니다
+            물음표 박스를 클릭하시면 자세히 확인할 수 있습니다.
+        </div>
+    </div>
+    
+    <img src="/img/han_cloud.png" alt="구름" class="cloud">
+    
+    <a href="han_secret.html">
+        <img src="/img/han_mushroom.png" alt="비밀 버튼" class="secret-button">
+    </a>
+</body>
+</html>

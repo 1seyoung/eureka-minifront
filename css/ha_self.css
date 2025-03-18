@@ -1,0 +1,13 @@
+div {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+li {
+    display: inline-block;
+    margin-right: 20px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자기소개 - 마리오 구름 맵</title>
+    <!-- External CSS 링크 -->
+    <link rel="stylesheet" href="/css/han_mario-style.css">
+    
+    <!-- Internal CSS -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #87CEEB; /* 하늘색 배경 */
+            color: #333;
+        }
+        
+        /* 구름 배경 효과 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('cloud.png');
+            background-repeat: repeat;
+            background-size: 300px;
+            opacity: 0.2;
+            z-index: -1;
+        }
+        
+        .cloud-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+        
+        .cloud-decoration {
+            position: absolute;
+            width: 150px;
+            height: auto;
+        }
+        
+        .cloud-top-right {
+            top: -50px;
+            right: -50px;
+        }
+        
+        .cloud-bottom-left {
+            bottom: -50px;
+            left: -50px;
+        }
+        
+        .profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid #FFC107;
+            object-fit: cover;
+            margin-right: 30px;
+        }
+        
+        .profile-info {
+            flex: 1;
+        }
+        
+        .profile-info h1 {
+            color: #E91E63;
+            margin-bottom: 10px;
+        }
+        
+        .profile-info p {
+            font-size: 1.1em;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed #E0E0E0;
+        }
+        
+        .section h2 {
+            color: #2196F3;
+            margin-bottom: 15px;
+        }
+        
+        .section p {
+            line-height: 1.6;
+        }
+        
+        .mario-item {
+            width: 40px;
+            height: auto;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+        
+        .nav-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .nav-button:hover {
+            background-color: #388E3C;
+        }
+        
+        .gitjandi {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .links {
+            margin-top: 20px;
+        }
+        
+        .link-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .link-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+        
+        .link-url {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s;
+        }
+        
+        .link-url:hover {
+            color: #0D47A1;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="cloud-container">
+        <img src="/img/han_cloud.png" alt="구름 장식" class="cloud-decoration cloud-top-right">
+        <img src="/img/han_cloud.png" alt="구름 장식" class="cloud-decoration cloud-bottom-left">
+        
+        <div class="profile-section">
+            <img src="/img/han_mario.png" alt="프로필 이미지" class="profile-image">
+            <div class="profile-info">
+                <h1>한세영</h1>
+                <p>백수에요</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <p>
+                안녕하세요 <strong style="color: #E91E63;">한세영</strong>입니다. 
+                요즘하는 게임은 "overcooked" , 재밌게한 게임 "데이브 더 다이브", 아끼는 게임 "마리오 오딧세이, 마리오64 DS" 입니다...!
+            </p>
+            
+            <div class="links">
+                <div class="link-item">
+                    <a href="https://publish.obsidian.md/1seyoung" target="_blank" class="link-url">블로그 바로가기</a>
+                </div>
+                
+                <div class="link-item">
+                    <a href="https://github.com/1seyoung" target="_blank" class="link-url">깃허브 바로가기</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>🌱 GitHub 잔디 🌱</h3>
+            <p>
+                <img src="/img/han_gitjandi.png" alt="GitHub 잔디" class="gitjandi">
+            </p>
+            <p style="color: #388E3C; font-weight: bold;">
+                요즘은 게임 안하고 커밋 열심히 하고 있습니다...
+            </p>
+        </div>
+        
+        <div class="navigation">
+            <a href="han_index.html" class="nav-button">메인 화면으로</a>
+            <a href="han_game.html" class="nav-button">마리오가 움직여</a>
+        </div>
+    </div>
+</body>
+</html>
