@@ -8,30 +8,57 @@
     <style>
         .join-button {
             display: block;
-            margin: 20px auto;
-            background: radial-gradient(circle, #ff0000, #ff9900);
-            color: yellow;
-            font-size: 24px;
+            margin: 30px auto;
+            background: linear-gradient(45deg, #2b5876, #4e4376);
+            color: white;
+            font-size: 20px;
             font-weight: bold;
             padding: 16px 32px;
-            border: 4px solid black;
-            border-radius: 12px;
+            border: none;
+            border-radius: 50px;
             cursor: pointer;
-            transition: transform 0.3s ease, background 0.3s;
-            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.8);
-            text-shadow: 2px 2px 5px black;
-            animation: flashText 1s infinite alternate;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(43, 88, 118, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .join-button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #4e54c8, #8f94fb);
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
         }
 
         .join-button:hover {
-            background: radial-gradient(circle, #ff3300, #ffcc00);
-            transform: scale(1.1) rotate(-2deg);
-            box-shadow: 0 10px 25px rgba(255, 0, 0, 1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(43, 88, 118, 0.5);
+        }
+        
+        .join-button:hover::before {
+            opacity: 1;
+        }
+        
+        .join-button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 15px rgba(43, 88, 118, 0.4);
         }
 
-        @keyframes flashText {
-            0% { color: yellow; }
-            100% { color: white; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(43, 88, 118, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(43, 88, 118, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(43, 88, 118, 0); }
+        }
+        
+        .join-button {
+            animation: pulse 2s infinite;
         }
 
         .modal {
@@ -64,6 +91,127 @@
             font-size: 24px;
             cursor: pointer;
         }
+        
+        /* 추가된 스타일 */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            margin: 15px 0;
+        }
+        
+        .form-group {
+            width: 100%;
+            text-align: left;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #ddd;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #555;
+            border-radius: 6px;
+            background-color: #444;
+            color: white;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .form-input:focus {
+            border-color: #ff6600;
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
+        }
+        
+        textarea.form-input {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin: 5px 0;
+        }
+        
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            color: #ddd;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 5px 0;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, #ff6600, #ff9900);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 102, 0, 0.4);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 102, 0, 0.5);
+        }
+        
+        .output-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #444;
+            border-radius: 8px;
+            text-align: left;
+            display: none;
+        }
+        
+        .output-title {
+            color: #ff6600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .output-item {
+            margin-bottom: 6px;
+        }
+        
+        .output-label {
+            font-weight: bold;
+            color: #ddd;
+        }
+        
+        .participant-name {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+        
+        .mic-icon {
+            width: 8px;
+            height: 8px;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
     </style>
 </head>
 <body>
@@ -73,98 +221,127 @@
         <div class="zoom-container">
             <div class="participant-box" onclick="location.href='ha_self.html'">
                 <img src="../img/ha_cat.jpg" alt="HA">
-                <div class="participant-name">
-                    <span class="mic-status"></span>
-                    하령경
-                </div>
+                <div class="participant-name">🎙️ 하령경</div>
             </div>
-            
             <div class="participant-box" onclick="location.href='han_index.html'">
-                <img src="../img/placeholder2.jpeg" alt="HAN">
-                <div class="participant-name">
-                    <span class="mic-status"></span>
-                    백수에요
-                </div>
+                <img src="../img/placeholder2.png" alt="HAN">
+                <div class="participant-name">🎙️ 백수에요</div>
             </div>
-            
             <div class="participant-box" onclick="location.href='jang_main.html'">
                 <img src="../img/jang_cat.jpg" alt="JANG">
-                <div class="participant-name">
-                    <span class="mic-status"></span>
-                    장현서
-                </div>
+                <div class="participant-name">🎙️ 장현서</div>
             </div>
-            
             <div class="participant-box" onclick="location.href='jung_index.html'">
                 <img src="../img/jung_cheerup.png" alt="JUNG">
-                <div class="participant-name">
-                    <span class="mic-status"></span>
-                    정동현
-                </div>
+                <div class="participant-name">🎙️ 정동현</div>
             </div>
-            
             <div class="participant-box" onclick="location.href='moon_main.html'">
                 <img src="../img/moon_cat.jpg" alt="MOON">
-                <div class="participant-name">
-                    <span class="mic-status"></span>
-                    반장입니다.
-                </div>
+                <div class="participant-name">🎙️ 반장입니다.</div>
             </div>
-            
             <div class="participant-box" onclick="location.href='son_1.html'">
                 <img src="../img/son_flag.jpg" alt="SON">
-                <div class="participant-name">
-                    <span class="mic-status"></span>
-                    국뽕유튜브_구독해주세요(펄럭)
-                </div>
+                <div class="participant-name">🎙️ 국뽕유튜브_구독해주세요(펄럭)</div>
             </div>
         </div>
         
-        <button class="join-button" id="openJoinModal">💰🔥단 5초 만에 가입 가능!🔥💰</button>
+        <button class="join-button" id="openJoinModal">
+            <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 10l5 5-5 5"></path>
+                    <path d="M4 4v7a4 4 0 0 0 4 4h12"></path>
+                </svg>
+                회의에 참여하기
+            </span>
+        </button>
         
         <div id="joinModal" class="modal">
             <div class="modal-content">
                 <span class="close-btn" id="closeModal">&times;</span>
-                <h2>가입 신청</h2>
+                <h2>회의 참여</h2>
                 <form id="joinForm">
-                    <label for="name">이름:</label>
-                    <input type="text" id="name" name="name" required>
-                    
-                    <label for="goal">포부:</label>
-                    <textarea id="goal" name="goal" required></textarea>
-                    
-                    <button type="submit">신청하기</button>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label class="form-label" for="name">이름:</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="회의에 표시될 이름을 입력하세요" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label" for="goal">회의 참여 목적:</label>
+                            <textarea id="goal" name="goal" class="form-input" placeholder="회의 참여 목적을 간략히 적어주세요" required rows="5"></textarea>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 10px;">
+                            <button type="submit" class="submit-btn">참여하기</button>
+                        </div>
+                    </div>
                 </form>
+                
+                <div id="outputSection" class="output-section">
+                    <h3 class="output-title">입력하신 정보</h3>
+                    <div id="outputData"></div>
+                </div>
             </div>
         </div>
         
         <script>
-            const openModalBtn = document.getElementById('openJoinModal');
-            const closeModalBtn = document.getElementById('closeModal');
-            const modal = document.getElementById('joinModal');
-            const joinForm = document.getElementById('joinForm');
-
-            openModalBtn.addEventListener('click', () => {
-                modal.style.display = 'block';
+            document.getElementById('openJoinModal').addEventListener('click', () => {
+                document.getElementById('joinModal').style.display = 'block';
             });
-
-            closeModalBtn.addEventListener('click', () => {
-                modal.style.display = 'none';
+            
+            document.getElementById('closeModal').addEventListener('click', () => {
+                document.getElementById('joinModal').style.display = 'none';
             });
-
+            
             window.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    modal.style.display = 'none';
+                if (e.target === document.getElementById('joinModal')) {
+                    document.getElementById('joinModal').style.display = 'none';
                 }
             });
-
-            joinForm.addEventListener('submit', (e) => {
+            
+            document.getElementById('joinForm').addEventListener('submit', (e) => {
                 e.preventDefault();
-                const name = document.getElementById('name').value;
-                const goal = document.getElementById('goal').value;
-                localStorage.setItem('joinData', JSON.stringify({ name, goal }));
-                alert('가입 신청이 완료되었습니다!');
-                modal.style.display = 'none';
+                
+                // 폼 데이터 수집
+                const formData = {
+                    name: document.getElementById('name').value,
+                    goal: document.getElementById('goal').value,
+                    submitTime: new Date().toLocaleString()
+                };
+                
+                // 로컬 스토리지에 저장
+                localStorage.setItem('joinData', JSON.stringify(formData));
+                
+                // 입력된 정보 출력
+                const outputSection = document.getElementById('outputSection');
+                const outputData = document.getElementById('outputData');
+                
+                outputData.innerHTML = `
+                    <div class="output-item"><span class="output-label">이름:</span> ${formData.name}</div>
+                    <div class="output-item"><span class="output-label">회의 참여 목적:</span> ${formData.goal}</div>
+                    <div class="output-item"><span class="output-label">참여 시간:</span> ${formData.submitTime}</div>
+                `;
+                
+                outputSection.style.display = 'block';
+                
+                // 알림 표시
+                alert('회의 참여가 완료되었습니다!');
+            });
+            
+            // 로컬 스토리지에 저장된 데이터가 있으면 불러오기
+            window.addEventListener('load', () => {
+                const savedData = localStorage.getItem('joinData');
+                if (savedData) {
+                    try {
+                        const formData = JSON.parse(savedData);
+                        
+                        // 폼 필드에 데이터 채우기
+                        if (formData.name) document.getElementById('name').value = formData.name;
+                        if (formData.goal) document.getElementById('goal').value = formData.goal;
+                    } catch (error) {
+                        console.error('저장된 데이터를 불러오는 중 오류가 발생했습니다:', error);
+                    }
+                }
             });
         </script>
     </div>
