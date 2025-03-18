@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3조 메인 페이지</title>
+    <title>팀 프로젝트 메인 페이지</title>
     <link rel="stylesheet" href="./css/style.css">
     <style>
         * {
@@ -132,6 +132,8 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
             position: relative;
+            display: flex;
+            flex-direction: column;
         }
         
         .participant-box:hover {
@@ -143,6 +145,7 @@
             width: 100%;
             height: 180px;
             object-fit: cover;
+            background-color: #222;
             display: block;
         }
         
@@ -184,7 +187,19 @@
             box-shadow: 0 6px 15px rgba(78, 158, 255, 0.3);
         }
         
+        .join-team-button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
         .join-form {
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .chat-input-form {
             margin-top: 15px;
             display: none;
         }
@@ -218,7 +233,7 @@
             resize: vertical;
         }
         
-        .submit-join-button {
+        .submit-join-button, .send-message-button {
             width: 100%;
             background: linear-gradient(to right, #4e54c8, #8f94fb);
             color: white;
@@ -231,7 +246,7 @@
             transition: all 0.2s;
         }
         
-        .submit-join-button:hover {
+        .submit-join-button:hover, .send-message-button:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(78, 158, 255, 0.4);
         }
@@ -291,6 +306,101 @@
         
         .meeting-time {
             font-weight: bold;
+        }
+        
+        .participants-list {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .participants-list-content {
+            background-color: #2d2d2d;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80%;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        }
+        
+        .participants-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #444;
+        }
+        
+        .participants-list-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .participants-list-close {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .participants-list-close:hover {
+            color: white;
+        }
+        
+        .participants-list-item {
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            background-color: #3d3d3d;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .participant-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .participant-full-name {
+            font-weight: bold;
+        }
+        
+        .participant-nickname {
+            font-size: 12px;
+            color: #aaa;
+        }
+        
+        .participant-join-time {
+            font-size: 12px;
+            color: #777;
+        }
+        
+        .clear-data-button {
+            margin-top: 15px;
+            padding: 8px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+        
+        .clear-data-button:hover {
+            background-color: #c0392b;
         }
         
         /* 모바일 반응형 */
@@ -389,7 +499,7 @@
                             <polyline points="21 15 16 10 5 21"></polyline>
                         </svg>
                     </button>
-                    <button class="control-button" title="참가자 목록">
+                    <button class="control-button" id="participantsBtn" title="참가자 목록">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                             <circle cx="9" cy="7" r="4"></circle>
@@ -435,7 +545,7 @@
                 <button class="join-team-button" id="joinTeamBtn">우리 조에 함께할래요?</button>
                 <div class="join-form" id="joinForm">
                     <label class="input-label" for="nameInput">이름</label>
-                    <input type="text" class="join-form-input" id="nameInput" placeholder="실명을 입력하세요" required>
+                    <input type="text" class="join-form-input" id="nameInput" placeholder="실명을 입력하세요(수정불가)" required>
                     
                     <label class="input-label" for="nicknameInput">별명</label>
                     <input type="text" class="join-form-input" id="nicknameInput" placeholder="별명을 입력하세요" required>
@@ -445,11 +555,36 @@
                     
                     <button class="submit-join-button" id="submitJoinBtn">참여하기</button>
                 </div>
+                
+                <div class="chat-input-form" id="chatInputForm">
+                    <textarea class="join-form-textarea" id="chatInput" placeholder="메시지를 입력하세요..." style="min-height: 60px;"></textarea>
+                    <button class="send-message-button" id="sendMessageBtn">전송</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 참가자 목록 모달 -->
+    <div class="participants-list" id="participantsList">
+        <div class="participants-list-content">
+            <div class="participants-list-header">
+                <div class="participants-list-title">참가자 목록</div>
+                <button class="participants-list-close" id="closeParticipantsList">&times;</button>
+            </div>
+            <div id="participantsListItems">
+                <!-- 참가자 목록 아이템이 여기에 동적으로 추가됩니다 -->
             </div>
         </div>
     </div>
     
     <script>
+        // 페이지 로드 시 초기화
+        window.addEventListener('load', () => {
+            updateMeetingTimer();
+            checkJoinStatus();
+            loadMessages();
+        });
+        
         // 회의 시간 타이머
         function updateMeetingTimer() {
             const timerElement = document.getElementById('meetingTimer');
@@ -484,29 +619,71 @@
             }
         });
         
-        // 조인 버튼 클릭 시 폼 표시
-        document.getElementById('joinTeamBtn').addEventListener('click', () => {
-            const joinForm = document.getElementById('joinForm');
-            if (joinForm.style.display === 'block') {
-                joinForm.style.display = 'none';
-            } else {
-                joinForm.style.display = 'block';
-                
-                // 로컬 스토리지에 저장된 데이터가 있으면 불러오기
-                const savedData = localStorage.getItem('joinData');
-                if (savedData) {
-                    try {
-                        const formData = JSON.parse(savedData);
-                        if (formData.name) document.getElementById('nameInput').value = formData.name;
-                        if (formData.nickname) document.getElementById('nicknameInput').value = formData.nickname;
-                    } catch (error) {
-                        console.error('저장된 데이터를 불러오는 중 오류가 발생했습니다:', error);
-                    }
-                }
+        // 참가자 목록 모달 열기/닫기
+        document.getElementById('participantsBtn').addEventListener('click', () => {
+            const participantsList = document.getElementById('participantsList');
+            participantsList.style.display = 'flex';
+            
+            // 참가자 목록 로드
+            loadParticipantsList();
+        });
+        
+        document.getElementById('closeParticipantsList').addEventListener('click', () => {
+            document.getElementById('participantsList').style.display = 'none';
+        });
+        
+        window.addEventListener('click', (e) => {
+            const participantsList = document.getElementById('participantsList');
+            if (e.target === participantsList) {
+                participantsList.style.display = 'none';
             }
         });
         
-        // 폼 제출 처리
+        // 조인 상태 확인 및 UI 업데이트
+        function checkJoinStatus() {
+            const joinTeamBtn = document.getElementById('joinTeamBtn');
+            const joinForm = document.getElementById('joinForm');
+            const chatInputForm = document.getElementById('chatInputForm');
+            
+            // 항상 버튼 클릭 가능하게 설정
+            joinTeamBtn.addEventListener('click', () => {
+                if (joinForm.style.display === 'block') {
+                    joinForm.style.display = 'none';
+                } else {
+                    joinForm.style.display = 'block';
+                }
+            });
+            
+            // 저장된 참가자 데이터 확인
+            const joinData = localStorage.getItem('joinData');
+            
+            if (joinData) {
+                try {
+                    const formData = JSON.parse(joinData);
+                    
+                    // 채팅 입력폼 표시
+                    chatInputForm.style.display = 'block';
+                    
+                    // 채팅 메시지 로드
+                    document.getElementById('emptyChatMessage').style.display = 'none';
+                    
+                    // 참여 메시지 추가 (페이지 새로고침 시에만)
+                    if (!window.messagesLoaded) {
+                        addChatMessage('시스템', `${formData.name}(${formData.nickname})님이 조에 함께하고 있습니다!`, formData.submitTime);
+                        addChatMessage(formData.nickname, formData.message, formData.submitTime);
+                        window.messagesLoaded = true;
+                    }
+                    
+                    // 이전 메시지 로드
+                    loadStoredMessages();
+                    
+                } catch (error) {
+                    console.error('저장된 데이터를 불러오는 중 오류가 발생했습니다:', error);
+                }
+            }
+        }
+        
+        // 조인 폼 제출 처리
         document.getElementById('submitJoinBtn').addEventListener('click', () => {
             const nameInput = document.getElementById('nameInput');
             const nicknameInput = document.getElementById('nicknameInput');
@@ -548,63 +725,145 @@
             // 빈 메시지 알림 숨기기
             document.getElementById('emptyChatMessage').style.display = 'none';
             
-            // 폼 숨기기 및 입력 필드 초기화
+            // UI 업데이트
             document.getElementById('joinForm').style.display = 'none';
-            document.getElementById('messageInput').value = '';
+            document.getElementById('chatInputForm').style.display = 'block';
+            
+        });
+        
+        document.getElementById('submitJoinBtn').addEventListener('click', () => {
+            const nameInput = document.getElementById('nameInput');
+            const nicknameInput = document.getElementById('nicknameInput');
+            const messageInput = document.getElementById('messageInput');
+            
+            if (!nameInput.value.trim()) {
+                alert('이름을 입력해주세요.');
+                nameInput.focus();
+                return;
+            }
+            
+            if (!nicknameInput.value.trim()) {
+                alert('별명을 입력해주세요.');
+                nicknameInput.focus();
+                return;
+            }
+            
+            if (!messageInput.value.trim()) {
+                alert('메시지를 입력해주세요.');
+                messageInput.focus();
+                return;
+            }
+            
+            // 폼 데이터 수집
+            const formData = {
+                name: nameInput.value.trim(),
+                nickname: nicknameInput.value.trim(),
+                message: messageInput.value.trim(),
+                submitTime: new Date().toLocaleString()
+            };
+            
+            // 참가자 데이터 배열 관리
+            const joinDataArray = JSON.parse(localStorage.getItem('joinDataArray') || '[]');
+            
+            // 중복 참가 방지 (이름 기준)
+            const isAlreadyJoined = joinDataArray.some(data => data.name === formData.name);
+            
+            if (isAlreadyJoined) {
+                alert('이미 참가한 이름입니다.');
+                return;
+            }
+            
+            // 새 참가자 추가
+            joinDataArray.push(formData);
+            localStorage.setItem('joinDataArray', JSON.stringify(joinDataArray));
+            
+            // 개인 참가 데이터도 저장 (기존 기능 유지)
+            localStorage.setItem('joinData', JSON.stringify(formData));
+            
+            // 채팅창에 메시지 추가
+            addChatMessage('시스템', `${formData.name}(${formData.nickname})님이 조에 함께하기로 했습니다!`, formData.submitTime);
+            addChatMessage(formData.nickname, formData.message, formData.submitTime);
+            
+            // 빈 메시지 알림 숨기기
+            document.getElementById('emptyChatMessage').style.display = 'none';
+            
+            // UI 업데이트
+            document.getElementById('joinForm').style.display = 'none';
+            document.getElementById('chatInputForm').style.display = 'block';
             
             // 알림 표시
             alert('조에 참여가 완료되었습니다!');
         });
         
-        // 로컬 스토리지에 저장된 데이터가 있으면 불러오기
-        window.addEventListener('load', () => {
-            updateMeetingTimer();
-            
-            const savedData = localStorage.getItem('joinData');
-            if (savedData) {
-                try {
-                    const formData = JSON.parse(savedData);
-                    
-                    // 채팅 메시지 로드
-                    document.getElementById('emptyChatMessage').style.display = 'none';
-                    addChatMessage('시스템', `${formData.name}(${formData.nickname})님이 조에 함께하고 있습니다!`, formData.submitTime);
-                    addChatMessage(formData.nickname, formData.message, formData.submitTime);
-                } catch (error) {
-                    console.error('저장된 데이터를 불러오는 중 오류가 발생했습니다:', error);
-                }
-            }
-        });
-        
         // 채팅 메시지 추가 함수
-        function addChatMessage(sender, content, time) {
+        function addChatMessage(sender, message, time) {
             const chatMessages = document.getElementById('chatMessages');
-            const messageDiv = document.createElement('div');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message');
             
-            messageDiv.className = sender === '시스템' ? 'chat-message system-message' : 'chat-message';
-            
-            messageDiv.innerHTML = `
+            messageElement.innerHTML = `
                 <div class="message-header">
                     <span class="message-sender">${sender}</span>
-                    <span class="message-time">${time.split(',')[0]}</span>
+                    <span class="message-time">${time}</span>
                 </div>
-                <div class="message-content">
-                    ${content}
-                </div>
+                <div class="message-content">${message}</div>
             `;
             
-            chatMessages.appendChild(messageDiv);
+            chatMessages.appendChild(messageElement);
+            
+            // 스크롤을 가장 아래로 이동
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
         
-        // 컨트롤 버튼 클릭 이벤트 (예시)
-        document.querySelectorAll('.control-button').forEach(button => {
-            if (button.id !== 'toggleChatBtn') {
-                button.addEventListener('click', function() {
-                    const title = this.title;
-                    alert(`${title} 버튼은 가짜입니다.`);
-                });
+        // 메시지 저장 함수
+        function saveMessage(messageData) {
+            let messages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
+            messages.push(messageData);
+            localStorage.setItem('chatMessages', JSON.stringify(messages));
+        }
+        
+        // 저장된 메시지 로드 함수
+        function loadStoredMessages() {
+            const messages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
+            const chatMessages = document.getElementById('chatMessages');
+            
+            messages.forEach(msg => {
+                addChatMessage(msg.sender, msg.message, msg.timestamp);
+            });
+        }
+        
+        // 메시지 로드 함수
+        function loadMessages() {
+            const joinData = localStorage.getItem('joinData');
+            if (joinData) {
+                const parsedJoinData = JSON.parse(joinData);
+                document.getElementById('emptyChatMessage').style.display = 'none';
             }
-        });
+        }
+        
+        // 참가자 목록 로드 함수
+        function loadParticipantsList() {
+            const participantsListItems = document.getElementById('participantsListItems');
+            participantsListItems.innerHTML = ''; // 기존 목록 초기화
+            
+            // 참가자 데이터 배열로 저장
+            const joinDataArray = JSON.parse(localStorage.getItem('joinDataArray') || '[]');
+            
+            joinDataArray.forEach(formData => {
+                const participantItem = document.createElement('div');
+                participantItem.classList.add('participants-list-item');
+                participantItem.innerHTML = `
+                    <div class="participant-info">
+                        <div class="participant-full-name">${formData.name}</div>
+                        <div class="participant-nickname">별명: ${formData.nickname}</div>
+                    </div>
+                    <div class="participant-join-time">${formData.submitTime}</div>
+                `;
+                
+                participantsListItems.appendChild(participantItem);
+            });
+        }
+        
     </script>
 </body>
 </html>
